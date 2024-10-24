@@ -1,0 +1,26 @@
+class Solution {
+    public boolean flipEquiv(TreeNode root1, TreeNode root2) {
+        // Base case: if both nodes are null, they are equivalent
+        if (root1 == null && root2 == null) {
+            return true;
+        }
+        // If one is null and the other is not, they can't be equivalent
+        if (root1 == null || root2 == null) {
+            return false;
+        }
+        // If the values of the nodes are different, they can't be equivalent
+        if (root1.val != root2.val) {
+            return false;
+        }
+        
+        // Check for flip equivalence
+        // Case 1: No flip (compare left-left and right-right)
+        boolean noFlip = flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right);
+        
+        // Case 2: Flip (compare left-right and right-left)
+        boolean flip = flipEquiv(root1.left, root2.right) && flipEquiv(root1.right, root2.left);
+        
+        // Return true if either noFlip or flip is true
+        return noFlip || flip;
+    }
+}
